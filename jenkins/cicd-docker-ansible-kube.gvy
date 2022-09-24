@@ -42,8 +42,9 @@ stages {
 		    sh 'docker build --file Dockerfile --tag lerndevops/samplejavaapp:$BUILD_NUMBER .'
 		    withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_PWD', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
 			    sh "docker login -u $USER -p $PASSWORD https://registry.hub.docker.com/"
+			    sh "docker tag lerndevops/samplejavaapp:$BUILD_NUMBER kawal18/lerndevops:latest"
 		    }
-		    sh 'docker push lerndevops/samplejavaapp:$BUILD_NUMBER'
+		    sh 'docker push kawal18/lerndevops:latest'
 	    }
     }
     stage('Deploy-QA') {
