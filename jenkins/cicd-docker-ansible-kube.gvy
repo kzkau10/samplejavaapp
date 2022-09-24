@@ -41,14 +41,12 @@ stages {
 		    sh 'cd $WORKSPACE'
 		    sh 'docker build --file Dockerfile --tag lerndevops/samplejavaapp:$BUILD_NUMBER .'
 		    withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_PWD', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
-                    def registry_url = "registry.hub.docker.com/"
-            	    bat "docker login -u $USER -p $PASSWORD ${registry_url}"
-                    docker.withRegistry("http://${registry_url}", "DOCKER_HUB_PWD") {
-            	    sh 'docker tag lerndevops/samplejavaapp:$BUILD_NUMBER kawal18/lerndevops:latest'
-		    sh 'docker push kawal18/lerndevops'
-}
-			    
-		    }
+    			def registry_url = "registry.hub.docker.com/"
+              		bat "docker login -u $USER -p $PASSWORD ${registry_url}"
+            		docker.withRegistry("http://${registry_url}", "DOCKER_HUB_PWD") {
+            			sh 'docker tag lerndevops/samplejavaapp:$BUILD_NUMBER kawal18/lerndevops:latest'
+			    	sh 'docker push kawal18/lerndevops'
+                }   
 		    
 	    }
     }
