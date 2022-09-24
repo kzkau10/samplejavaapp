@@ -46,7 +46,8 @@ stages {
             		docker.withRegistry("http://${registry_url}", "DOCKER_HUB_PWD") {
             			sh 'docker tag lerndevops/samplejavaapp:$BUILD_NUMBER kawal18/lerndevops:latest'
 			    	sh 'docker push kawal18/lerndevops'
-                }   
+                	}
+		    }
 		    
 	    }
     }
