@@ -41,9 +41,9 @@ stages {
 		    sh 'cd $WORKSPACE'
 		    sh 'docker build --file Dockerfile --tag lerndevops/samplejavaapp:$BUILD_NUMBER .'
 		    withDockerRegistry(credentialsId: 'DOCKER_HUB_PWD', url: 'https://registry.hub.docker.com/'){
-			    sh "docker login -u kawal18 -p ${DOCKER_HUB_PWD}"
+			    sh 'docker push lerndevops/samplejavaapp:$BUILD_NUMBER'
 		    }
-		    sh 'docker push lerndevops/samplejavaapp:$BUILD_NUMBER'
+		    
 	    }
     }
     stage('Deploy-QA') {
