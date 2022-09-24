@@ -40,8 +40,8 @@ stages {
 	    steps {
 		    sh 'cd $WORKSPACE'
 		    sh 'docker build --file Dockerfile --tag lerndevops/samplejavaapp:$BUILD_NUMBER .'
-		    withCredentials([string(credentialsId: 'DOCKER_HUB_PWD', variable: 'DOCKER_HUB_PWD')]) {
-			    sh "docker login -u lerndevops -p ${DOCKER_HUB_PWD}"
+		    withCredentials([usernamePassword(credentialsId: 'DOCKER_HUB_PWD', passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
+			    sh "docker login -u $USER -p $PASSWORD https://registry.hub.docker.com/"
 		    }
 		    sh 'docker push lerndevops/samplejavaapp:$BUILD_NUMBER'
 	    }
